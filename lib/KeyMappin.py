@@ -1,5 +1,5 @@
 
-class KeyMappin(object):
+class keymappin(object):
     def __init__(self):
         # 音节表
         self.notes =  [

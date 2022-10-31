@@ -2,7 +2,7 @@ import win32api
 import win32gui
 import win32con
 
-class Win32(object):
+class win32(object):
     def __init__(self):
         self.key_map = {
             "1": 49, "2": 50, "3": 51, "4": 52, "5": 53, "6": 54, "7": 55,

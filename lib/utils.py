@@ -1,7 +1,7 @@
 
 import matplotlib.pyplot as plt
 
-class utilss(object):
+class utils(object):
     def __init__(self):
         pass
     

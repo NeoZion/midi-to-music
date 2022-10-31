@@ -1,18 +1,24 @@
 import time
 
-from lib.MIDI import MIDI as midi
-from lib.KeyMappin import KeyMappin
-from lib.Win32 import Win32
-from lib.utilss import utilss
+from lib.midi import midi as midi
+from lib.keymappin import keymappin
+from lib.win32 import win32
+from lib.utils import utils
 
 def run():
-    name = "lan.mid"
-    notelist , old_notelist = midi().get_midi(name)
+    name = "song/lan.mid"
+    global midi,win32,utils,keymappin
     
-    utilss().note_analsis_pic(utilss().note_analysis(notelist),utilss().note_analysis(old_notelist))
+    midi = midi()
+    win32 = win32()
+    utils = utils()
+    keymappin = keymappin()
     
-    mappin = KeyMappin().NoteMapping()
-    win32 = Win32()
+    notelist , old_notelist = midi.get_midi(name)
+    
+    utils.note_analsis_pic(utils.note_analysis(notelist), utils.note_analysis(old_notelist))
+    
+    mappin = keymappin.NoteMapping()
     win32.mouse_click(win32.get_Hwnd())
     for notes in notelist:
         note = mappin[notes["note"]]
