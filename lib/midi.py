@@ -49,20 +49,18 @@ class midi(object):
         return Ttemp_note
 
     
-    def get_midi(self,name):
-        notelist = []
+    def get_midi(self,midi_object):
         old_notelist = []
-        time = 0
+        notelist = []
         tempo = 0
-        midi_object = mido.MidiFile(name,clip=True)
         ticks_per_beat = midi_object.ticks_per_beat
+        
         for track in midi_object.tracks:
             for i in track:
                 if i.type == "set_tempo":
                     tempo = i.tempo
-                tick = i.time * (tempo / ticks_per_beat)
+                tick = i.time * (tempo / ticks_per_beat) / 1000000
                 if i.type == 'note_on' or i.type == 'note_off':
-                    #note_21 = self.To_21Key(self.To_36key(i.note)) + 48
                     old_temp = {"type": i.type, "note": i.note, "time": tick,"channel":i.channel}
                     old_notelist.append(old_temp)
                     note_21 = self.To_key(i.note)
