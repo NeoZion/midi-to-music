@@ -11,18 +11,14 @@ class midi(object):
             return note
         if note in self.blackKey:
             note += 1
-        if (48 <= note < 60):
-            return note + 12
-        if (36 <= note < 48):
-            return note + 24
         if (24 <= note < 36):
-            return note + 36
-        if (71 < note <= 83):
-            return note - 12
+            return note + 24
+        if (36 <= note < 48):
+            return note + 12
         if (83 < note <= 95):
-            return note - 24
+            return note - 12
         if (95 < note <= 107):
-            return note - 36
+            return note - 24
         return -1
             
         
@@ -57,12 +53,14 @@ class midi(object):
         notelist = []
         old_notelist = []
         time = 0
+        tempo = 0
         midi_object = mido.MidiFile(name,clip=True)
         ticks_per_beat = midi_object.ticks_per_beat
-        tempo = 789473
         for track in midi_object.tracks:
             for i in track:
-                tick = tempo * (i.time / ticks_per_beat)
+                if i.type == "set_tempo":
+                    tempo = i.tempo
+                tick = i.time * (tempo / ticks_per_beat)
                 if i.type == 'note_on' or i.type == 'note_off':
                     #note_21 = self.To_21Key(self.To_36key(i.note)) + 48
                     old_temp = {"type": i.type, "note": i.note, "time": tick,"channel":i.channel}

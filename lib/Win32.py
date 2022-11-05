@@ -20,7 +20,6 @@ class win32(object):
 
     def key_down(self,key):
         key = key.upper()
-        
         vk_code = self.key_map[key]
         win32api.keybd_event(vk_code,win32api.MapVirtualKey(vk_code,0),0,0)
     
