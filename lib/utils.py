@@ -20,7 +20,7 @@ class utils(object):
         
         return base_note
     
-    def note_analsis_pic(self,deal_note,old_note):
+    def note_analsis_pic(self,deal_note,old_note,black_note):
         fig = plt.figure()
         y = []
         x = []
@@ -34,7 +34,14 @@ class utils(object):
             x1.append(i["key"])
             y1.append(i["val"])
             
+        z1 = []
+        z2 = []
+        for i in black_note:
+            z1.append(i["key"])
+            z2.append(i["val"])
+            
         plt.plot(x, y, color='r', linestyle='-')
         plt.plot(x1, y1, color='g', linestyle='-')
+        plt.plot(z1,z2, color='b', linestyle='-')
         plt.show()
         

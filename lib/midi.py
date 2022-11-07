@@ -22,13 +22,13 @@ class midi(object):
         return -1
             
         
-    def total_blackKey(self,notelist):
-        black_total = 0
+    def black_Key(self,notelist):
+        blacklist = []
         for note in notelist:
-            if note in self.blackKey:
-                black_total += 1
+            if note["note"] in self.blackKey:
+                append(blacklist, note["note"])
                 
-        return black_total
+        return blacklist
 
     def Deal_blackKey(self,notelist):
         temp_note = []
@@ -67,5 +67,7 @@ class midi(object):
                     if note_21 != -1 :
                         temp = {"type": i.type, "note": note_21, "time": tick,"channel":i.channel}
                         notelist.append(temp)
+        
+        blacklist = self.black_Key(notelist)
                     
-        return notelist, old_notelist
+        return notelist, old_notelist,  blacklist

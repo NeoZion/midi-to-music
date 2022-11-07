@@ -36,10 +36,12 @@ def play_music(notelist,win32,mappin,mode="normal"):
                 time.sleep(notes["time"])
 
 def run():
-    name = "song/moonfar.mid"
-    mode = "normal"
     global midi,win32,utils,keymappin
-    
+    name = "song/lan.mid"
+    mode = "normal"
+    window_name = u"天涯明月刀"
+    key = "tiandao"
+
     midi = midi()
     win32 = win32()
     utils = utils()
@@ -47,23 +49,22 @@ def run():
     
     # 获取曲谱
     midi_object = mido.MidiFile(name,clip=True)
-    notelist , old_notelist = midi.get_midi(midi_object)
+    note_list , old_notelist, black_list = midi.get_midi(midi_object)
     
-    for i in notelist:
-        print(i)
-    
+    for i in note_list:
+        print(i["note"],i["time"])
     # 分析曲谱音节分布
-    utils.note_analsis_pic(utils.note_analysis(notelist), utils.note_analysis(old_notelist))
+    utils.note_analsis_pic(utils.note_analysis(note_list), utils.note_analysis(old_notelist),utils.note_analysis(black_list))
     
     # 获取按键对应参数
-    mappin = keymappin.NoteMapping()
+    mappin = keymappin.NoteMapping(key)
     
     # 获取窗口
-    win32.mouse_click(win32.get_Hwnd())
+    win32.mouse_click(win32.get_Hwnd(window_name))
 
     time.sleep(1)
     # 播放音乐
-    play_music(notelist,win32,mappin,mode)
+    play_music(note_list,win32,mappin,mode)
 
     
 if __name__ == "__main__":

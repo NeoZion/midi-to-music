@@ -4,15 +4,23 @@ import win32con
 
 class win32(object):
     def __init__(self):
+        
+        """ key_map = {
+            "1": 49, "2": 50, "3": 51, "4": 52, "5": 53, "6": 54, "7": 55, "8": 56, "9": 57, "0": 58,
+            "A": 65, "B": 66, "C": 67, "D": 68, "E": 69, "F": 70, "G": 71, "H": 72, "I": 73, "J": 74,
+            "K": 75, "L": 76, "M": 77, "N": 78, "O": 79, "P": 80, "Q": 81, "R": 82, "S": 83, "T": 84,
+            "U": 85, "V": 86, "W": 87, "X": 88, "Y": 89, "Z": 90
+        } """
+
         self.key_map = {
             "1": 49, "2": 50, "3": 51, "4": 52, "5": 53, "6": 54, "7": 55,
             "Q": 81, "W": 87, "E": 69, "R": 82, "T": 84, "Y": 89, "U": 85,
             "A": 65, "S": 83, "D": 68, "F": 70, "G": 71, "H": 72, "J": 74,
+            "Z": 90, "X": 88, "C": 67, "V": 86, "B": 66, "N": 78, "M": 77,
         }
-        self.windowName = u"天涯明月刀"
 
-    def get_Hwnd(self):
-        hwnd = win32gui.FindWindow(0,self.windowName)
+    def get_Hwnd(self,window_name):
+        hwnd = win32gui.FindWindow(0,window_name)
         if (hwnd):
             rect = win32gui.GetWindowRect(hwnd)
             return rect[0],rect[1]
