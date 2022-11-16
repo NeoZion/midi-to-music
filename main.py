@@ -38,10 +38,15 @@ def play_music(notelist,win32,mappin,mode="normal"):
 def run():
     global midi,win32,utils,keymappin
     name = "song/lan.mid"
+    flag = 1
     mode = "normal"
-    window_name = u"天涯明月刀"
-    key = "tiandao"
-
+    if flag == 0:
+        window_name = u"天涯明月刀"
+        key = "tiandao"
+    if flag == 1:
+        window_name = u"原神"
+        key = "yuanshen"
+    
     midi = midi()
     win32 = win32()
     utils = utils()
@@ -61,7 +66,7 @@ def run():
     
     # 获取窗口
     win32.mouse_click(win32.get_Hwnd(window_name))
-
+    
     time.sleep(1)
     # 播放音乐
     play_music(note_list,win32,mappin,mode)

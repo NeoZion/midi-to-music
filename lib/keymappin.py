@@ -15,9 +15,9 @@ class keymappin(object):
         ]
         # 原神键盘表
         self.yuanshen_keys =  [
-            'Q', 'W', 'E', 'R', 'T', 'Y', 'U', # C6~B6
-            'A', 'S', 'D', 'F', 'G', 'H', 'J', # C5~B5 (中央)
             'Z', 'X', 'C', 'V', 'B', 'N', 'M', # C4~B4
+            'A', 'S', 'D', 'F', 'G', 'H', 'J', # C5~B5 (中央)
+            'Q', 'W', 'E', 'R', 'T', 'Y', 'U', # C6~B6
         ] 
            
     def NoteMapping(self,key):
