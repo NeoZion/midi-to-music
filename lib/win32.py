@@ -1,7 +1,7 @@
 import win32api
 import win32gui
 import win32con
-
+import win32security
 class win32(object):
     def __init__(self):
         
@@ -20,6 +20,7 @@ class win32(object):
         }
 
     def get_Hwnd(self,window_name):
+        self.process_privileges(0)
         hwnd = win32gui.FindWindow(0,window_name)
         if (hwnd):
             rect = win32gui.GetWindowRect(hwnd)
@@ -41,3 +42,18 @@ class win32(object):
         win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
         win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
         return True
+    
+    def process_privileges(self,pid):
+        priv_list = ""
+        try:
+            hproc = win32api.OpenProcess(win32con.PROCESS_QUERY_INFORMATION,False,pid)
+            htok = win32security.OpenProcessToken(hproc,win32con.TOKEN_QUERY)
+            privs = win32security.GetTokenInformation(htok,win32security.TokenPrivileges)
+            
+            for i in privs:
+                if i[1] == 3:
+                    priv_list += "%s|" % win32security.LookupPrivilegeName(None,i[0])
+        except Exception as e:
+            priv_list = "N/A"
+ 
+        return priv_list

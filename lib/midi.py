@@ -70,4 +70,4 @@ class midi(object):
         
         blacklist = self.black_Key(notelist)
                     
-        return notelist, old_notelist,  blacklist
+        return notelist, old_notelist, blacklist

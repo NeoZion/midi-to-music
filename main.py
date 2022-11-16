@@ -1,7 +1,8 @@
 import time
 import mido
+import sys
 
-from lib.midi import midi as midi
+from lib.midi import midi
 from lib.keymappin import keymappin
 from lib.win32 import win32
 from lib.utils import utils
@@ -13,9 +14,6 @@ def play_music(notelist,win32,mappin,mode="normal"):
         
     for notes in notelist:
         note = mappin[notes["note"]]
-        # if flag[notes["note"]] == 1:
-        #    win32.key_up(note)
-        #    flag[notes["note"]] = 0
         if mode == "onlyon":
             if flag[notes["note"]] == 1:
                 win32.key_up(note)
@@ -37,9 +35,13 @@ def play_music(notelist,win32,mappin,mode="normal"):
 
 def run():
     global midi,win32,utils,keymappin
-    name = "song/lan.mid"
-    flag = 1
-    mode = "normal"
+    
+    name = "song/" + sys.argv[1] + "mid"  if sys.argv[1] == " " else "song/lan.mid"
+    mode = sys.argv[2] if sys.argv[2] else "normal"
+    flag = sys.argv[3] if sys.argv[3] else 1
+    key = "yuanshen"
+    window_name = u"原神"
+    
     if flag == 0:
         window_name = u"天涯明月刀"
         key = "tiandao"
@@ -56,8 +58,6 @@ def run():
     midi_object = mido.MidiFile(name,clip=True)
     note_list , old_notelist, black_list = midi.get_midi(midi_object)
     
-    for i in note_list:
-        print(i["note"],i["time"])
     # 分析曲谱音节分布
     utils.note_analsis_pic(utils.note_analysis(note_list), utils.note_analysis(old_notelist),utils.note_analysis(black_list))
     
@@ -67,7 +67,6 @@ def run():
     # 获取窗口
     win32.mouse_click(win32.get_Hwnd(window_name))
     
-    time.sleep(1)
     # 播放音乐
     play_music(note_list,win32,mappin,mode)
 
